@@ -1,11 +1,9 @@
 import requests
 
 class TomtomAPI:
-    def __init__(self, key_tomtom: str, key_geoapify: str) -> None:
+    def __init__(self, key_tomtom: str) -> None:
         self.key_tomtom = key_tomtom
-        self.key_geoapify = key_geoapify
         self.base_link_tomtom = "https://api.tomtom.com/search/2/"
-        self.base_link_geoapify = "https://api.geoapify.com/v2/"
     
     def reverse_geocode(self, lat: str, lon: str):
         '''
@@ -31,13 +29,6 @@ class TomtomAPI:
         places_response = requests.get(places_link)
         
         return places_response.json()
-
-    def place_details(self, lat: str, lon: str, lang: str):
-        place_link = f"{self.base_link_geoapify}place-details?lat={lat}&lon={lon}&lang={lang}&apiKey={self.key_geoapify}"
-
-        place_response = requests.get(place_link)
-
-        return place_response.json()
 
     def place_by_id(self,
                     entityId: str,
