@@ -1,9 +1,10 @@
 import requests
 
-class TomtomAPI:
+class TomTomAPI:
     def __init__(self, key_tomtom: str) -> None:
         self.key_tomtom = key_tomtom
         self.base_link_tomtom = "https://api.tomtom.com/search/2/"
+
     
     def reverse_geocode(self, lat: str, lon: str):
         '''
@@ -14,7 +15,8 @@ class TomtomAPI:
         response = requests.get(link)
         
         return response.json()
-    
+
+
     def nearby_search(self, lat: str, lon: str, lang: str, query: str):
         '''
         Finds nearby places based on latitude, longitude, language, and place type
@@ -30,6 +32,7 @@ class TomtomAPI:
         
         return places_response.json()
 
+
     def place_by_id(self,
                     entityId: str,
                     language: str = 'en-US',
@@ -38,6 +41,9 @@ class TomtomAPI:
                     mapcodes: str = 'Local,Alternative,International',
                     relatedPois: str = 'off',
                     view: str = 'Unified') -> list:
+        '''
+        Получение информации о месте с помощью его id
+        '''
         
         link = f"{self.base_link_tomtom}place.json"
 
@@ -53,7 +59,6 @@ class TomtomAPI:
         })
 
         return response.json()
-
 
 
     def _find_place_code(self, lang: str, query: str):
